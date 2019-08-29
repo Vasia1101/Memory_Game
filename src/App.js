@@ -5,7 +5,15 @@ import Board from './components/board/Board';
 import * as gameActions from './redux/GameAction';
 import './App.css';
 
-function App({ cards, step, showCards, handleClick, isModal, isWin }) {
+function App({
+  cards,
+  step,
+  showCards,
+  handleClick,
+  isModal,
+  isWin,
+  resetGame,
+}) {
   return (
     <div className="App">
       {!isModal ? (
@@ -20,13 +28,27 @@ function App({ cards, step, showCards, handleClick, isModal, isWin }) {
             <Board cards={cards} step={step} handleClick={handleClick} />
           ) : (
             <div>
-              <h1>Congratulations!!! You win</h1>{' '}
+              <h1>Congratulations!!! You win</h1>
+              <div>
+                <button
+                  className="start-button"
+                  type="button"
+                  onClick={resetGame}
+                >
+                  Try Once more ?
+                </button>
+              </div>
             </div>
           )}
         </header>
       ) : (
         <div>
           <h1>Game Over</h1>
+          <div>
+            <button className="reset-button" type="button" onClick={resetGame}>
+              You must win!
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -38,8 +60,7 @@ App.propTypes = {
   step: PropTypes.number.isRequired,
   handleClick: PropTypes.func.isRequired,
   showCards: PropTypes.func.isRequired,
-  isWin: PropTypes.bool.isRequired,
-  isModal: PropTypes.bool.isRequired,
+  resetGame: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -52,6 +73,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   showCards: () => dispatch(gameActions.startGame()),
   handleClick: (idx, id) => dispatch(gameActions.overturnCard(idx, id)),
+  resetGame: () => dispatch(gameActions.resetGame()),
 });
 
 export default connect(

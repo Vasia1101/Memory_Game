@@ -4,20 +4,8 @@ export const Type = {
   START_GAME: 'SART_GAME',
   OVERTURN_CARD: 'OVERTURN_CARD',
   CHECK_CARDS: 'CHECK_CARDS',
-
-  // SHOT: 'SHOT',
-  // CARDS: 'CARDS',
-  // RESTART_GAME: 'RESTART_GAME',
+  RESET_GAME: 'RESET_GAME',
 };
-
-// export const shot = id => ({
-//   type: Type.SHOT,
-//   payload: id,
-// });
-
-// export const getGard = () => ({
-//   type: Type.CARDS,
-// });
 
 export const startGame = () => {
   const cards = generateCards();
@@ -33,9 +21,9 @@ export const overturnCard = (idx, id) => {
     id,
   };
 };
-export const checkCard = overturnCards => {
+
+export const resetGame = () => {
   return {
-    type: Type.CHECK_CARDS,
-    overturnCards,
+    type: Type.RESET_GAME,
   };
 };

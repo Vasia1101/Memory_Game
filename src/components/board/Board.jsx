@@ -24,6 +24,8 @@ function Board({ cards, step, handleClick, idx, overturn }) {
 
 Board.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  step: PropTypes.number.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default Board;

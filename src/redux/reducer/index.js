@@ -19,17 +19,10 @@ const gameReducer = (state = initialState, action) => {
         cards: [...action.cards],
       };
     case Type.OVERTURN_CARD:
-      console.log(state.nick1);
-      console.log(state.nick2);
       if (state.step === 0) {
         return {
-          cards: generateCards(),
-          step: 20,
-          nick1: null,
-          nick2: null,
-          round: 1,
+          ...state,
           isModal: true,
-          isWin: false,
         };
       }
       let newState = { round: state.round + 1, step: state.step - 1 };
@@ -85,7 +78,16 @@ const gameReducer = (state = initialState, action) => {
       }
 
       return newState;
-
+    case Type.RESET_GAME:
+      return {
+        cards: generateCards(),
+        step: 20,
+        nick1: null,
+        nick2: null,
+        round: 1,
+        isModal: false,
+        isWin: false,
+      };
     default:
       return state;
   }
