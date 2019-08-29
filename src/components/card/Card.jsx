@@ -13,25 +13,27 @@ const images = [img1, img2, img3, img4, img5, img6];
 
 function Card({ overturn, id, handleClick, idx, height, width }) {
   return (
-    <>
-      <div
-        className={`flip-container ${overturn ? 'flipped' : ''}`}
-        style={{ width, height }}
-        onClick={() => {
-          handleClick(idx, id);
-        }}
-      >
-        <div className="flipper">
-          <img
-            id={id}
-            style={{ height, width }}
-            className={overturn ? 'front' : 'back'}
-            src={overturn ? images[idx - 1] : imgback}
-            alt="pic"
-          />
-        </div>
+    <div
+      className={`flip-container ${overturn ? 'flipped' : ''}`}
+      style={{ width, height }}
+      onClick={
+        overturn
+          ? null
+          : () => {
+              handleClick(idx, id);
+            }
+      }
+    >
+      <div className="flipper">
+        <img
+          id={id}
+          style={{ height, width }}
+          className={overturn ? 'front' : 'back'}
+          src={overturn ? images[idx - 1] : imgback}
+          alt="pic"
+        />
       </div>
-    </>
+    </div>
   );
 }
 
