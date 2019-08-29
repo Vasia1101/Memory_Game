@@ -44,11 +44,9 @@ function App({
       ) : (
         <div>
           <h1>Game Over</h1>
-          <div>
-            <button className="reset-button" type="button" onClick={resetGame}>
-              You must win!
-            </button>
-          </div>
+          <button className="reset-button" type="button" onClick={resetGame}>
+            You must win!
+          </button>
         </div>
       )}
     </div>

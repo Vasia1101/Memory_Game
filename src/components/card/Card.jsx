@@ -17,9 +17,13 @@ function Card({ overturn, id, handleClick, idx, height, width }) {
       <div
         className={`flip-container ${overturn ? 'flipped' : ''}`}
         style={{ width, height }}
-        onClick={() => {
-          handleClick(idx, id);
-        }}
+        onClick={
+          overturn
+            ? null
+            : () => {
+                handleClick(idx, id);
+              }
+        }
       >
         <div className="flipper">
           <img
