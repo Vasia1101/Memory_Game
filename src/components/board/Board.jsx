@@ -14,8 +14,6 @@ function Board({ cards, step, handleClick, idx, overturn }) {
           width={100}
           height={100}
           idx={card.idx}
-          // disabled={disabled}
-          // handleClick={() => (disabled ? null : handleClick((cards.id = id)))}
           overturn={card.overturn}
           handleClick={handleClick}
         />
@@ -26,7 +24,6 @@ function Board({ cards, step, handleClick, idx, overturn }) {
 
 Board.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  // disabled: PropTypes.bool.isRequired,
 };
 
 export default Board;
