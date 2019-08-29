@@ -1,24 +1,36 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as gameActions from '../../redux/GameAction';
+// import * as gameActions from '../../redux/GameAction';
 import './style.css';
 
-function Card({ handleClick, id, overturn, type, height, width, disabled }) {
-  console.log(id);
+function Card({
+  card,
+  overturn,
+  id,
+  handleClick,
+  idx,
+  height,
+  width,
+  disabled,
+}) {
+  // console.log(idx, id);
   return (
     <>
       <div
         className={`flip-container ${overturn ? 'flipped' : ''}`}
         style={{ width, height }}
-        onClick={() => /*disabled ? null : */ handleClick(id)}
+        onClick={() => {
+          handleClick(idx, id);
+        }}
+        // onClick={() => /*disabled ? null : */ handleClick(id)}
       >
         <div className="flipper">
           <img
             id={id}
             style={{ height, width }}
             className={overturn ? 'front' : 'back'}
-            src={overturn ? `/img/${type}.png` : `/img/logo192.png`}
+            src={overturn ? `/img/${idx}.png` : `/img/logo192.png`}
             alt="pic"
           />
         </div>
@@ -31,7 +43,7 @@ Card.propTypes = {
   handleClick: PropTypes.func.isRequired,
   //   step: PropTypes.number.isRequired,
   //   overturn: PropTypes.bool.isRequired,
-  type: PropTypes.string.isRequired,
+  idx: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
 };
@@ -43,7 +55,7 @@ Card.propTypes = {
 // const mapDispatchToProps = dispatch => ({
 //   handleClick: () => dispatch(gameActions.shot(1)),
 // });
-
-export default connect()(Card);
+export default Card;
+// export default connect()(Card);
 /* mapStateToProps,
   mapDispatchToProps, */

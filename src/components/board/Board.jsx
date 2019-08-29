@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import Card from '../card/Card';
 
-function Board({ cards, step, handleClick, overturn, id, disabled }) {
-  console.log(cards.id);
+function Board({ cards, step, handleClick, idx, overturn }) {
   return (
     <div>
       <h3>You have {step} shots</h3>
@@ -14,10 +13,10 @@ function Board({ cards, step, handleClick, overturn, id, disabled }) {
           id={card.id}
           width={100}
           height={100}
-          type={card.type}
-          disabled={disabled}
-          //   handleClick={() => (disabled ? null : handleClick((card.id = id)))}
-          overturn={overturn.includes(id)}
+          idx={card.idx}
+          // disabled={disabled}
+          // handleClick={() => (disabled ? null : handleClick((cards.id = id)))}
+          overturn={card.overturn}
           handleClick={handleClick}
         />
       ))}
@@ -27,7 +26,7 @@ function Board({ cards, step, handleClick, overturn, id, disabled }) {
 
 Board.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  disabled: PropTypes.bool.isRequired,
+  // disabled: PropTypes.bool.isRequired,
 };
 
 export default Board;

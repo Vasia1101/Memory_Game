@@ -6,7 +6,7 @@ import store from './redux/store';
 import './index.css';
 import App from './App';
 
-// console.log(store);
+console.log(store);
 // const store = createStore();
 
 ReactDOM.render(
