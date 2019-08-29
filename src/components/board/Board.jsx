@@ -5,7 +5,7 @@ import Card from '../card/Card';
 
 function Board({ cards, step, handleClick, idx, overturn }) {
   return (
-    <div>
+    <div className="block-cards">
       <h3>You have {step} shots</h3>
       {cards.map(card => (
         <Card
