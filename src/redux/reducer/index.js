@@ -28,126 +28,56 @@ const gameReducer = (state = initialState, action) => {
       let newState = { round: state.round + 1, step: state.step - 1 };
 
       if (state.round % 2 === 1) {
-        let getCurrentCard;
-        const flipedCard = state.cards.map(card => {
-          if (card.id === action.id) {
-            return {
-              ...card,
-              overturn: !card.overturn,
-            };
-          } else {
-            return card;
-          }
+        let cardClicked = state.cards.find(card => {
+          return card.id === action.id;
         });
-        return {
-          ...state,
-          nick1: action.id,
-          ...newState,
-          cards: flipedCard,
-        };
+        Object.assign(newState, {
+          nick1: cardClicked.idx,
+          nick2: null,
+          cards: state.cards.map(card => {
+            return card.id === action.id || card.rival === true
+              ? Object.assign({}, card, { overturn: true })
+              : Object.assign({}, card, { overturn: false });
+          }),
+        });
       } else {
-        const flipedCard = state.cards.map(card => {
-          if (card.id === action.id) {
-            return {
-              ...card,
-              overturn: !card.overturn,
-            };
-          } else {
-            return card;
-          }
+        let cardClicked = state.cards.find(card => {
+          return card.id === action.id;
         });
+        if (cardClicked.idx === state.nick1) {
+          Object.assign(newState, {
+            nick1: state.nick1,
+            nick2: cardClicked.idx,
+            cards: state.cards.map(card => {
+              return card.id === action.id || card.idx === state.nick1
+                ? Object.assign({}, card, { overturn: true, rival: true })
+                : card;
+            }),
+          });
+        } else {
+          Object.assign(newState, {
+            nick1: state.nick1,
+            nick2: cardClicked.rel,
+            cards: state.cards.map(card => {
+              return card.id === action.id
+                ? Object.assign({}, card, { overturn: true })
+                : card;
+            }),
+          });
+        }
+      }
+      if (
+        Object.keys({
+          ...state.cards.filter(card => card.overturn === true),
+        }).length === 11
+      ) {
         return {
           ...state,
-          ...newState,
-          cards: flipedCard,
+          isWin: true,
         };
       }
 
-    // if (state.round % 2 === 1) {
-    //   let cardClicked = state.cards.find(card => {
-    //     return card.id === action.id;
-    //   });
-    //   Object.assign(newState, {
-    //     nick1: cardClicked.idx,
-    //     nick2: null,
-    //     cards: state.cards.map(card => {
-    //       return card.id === action.id || card.rival === true
-    //         ? Object.assign({}, card, { overturn: true })
-    //         : Object.assign({}, card, { overturn: false });
-    //     }),
-    //   });
-    // } else {
-    //   let cardClicked = state.cards.find(card => {
-    //     return card.id === action.id;
-    //   });
-    //   if (cardClicked.idx === state.nick1) {
-    //     Object.assign(newState, {
-    //       nick1: state.nick1,
-    //       nick2: cardClicked.idx,
-    //       cards: state.cards.map(card => {
-    //         return card.id === action.id || card.idx === state.nick1
-    //           ? Object.assign({}, card, { overturn: true, rival: true })
-    //           : card;
-    //       }),
-    //     });
-    //   } else {
-    //     Object.assign(newState, {
-    //       nick1: state.nick1,
-    //       nick2: cardClicked.rel,
-    //       cards: state.cards.map(card => {
-    //         return card.id === action.id
-    //           ? Object.assign({}, card, { overturn: true })
-    //           : card;
-    //       }),
-    //     });
-    //   }
-    // }
-    // if (
-    //   Object.keys({
-    //     ...state.cards.filter(card => card.overturn === true),
-    //   }).length === 11
-    // ) {
-    //   return {
-    //     ...state,
-    //     isWin: true,
-    //   };
-    // }
-    case Type.MACH_CARDS: {
-      if (state.round % 2 !== 1) {
-        const notRivalCard = state.cards.filter(card => {
-          if (card.rival !== true) {
-            return card;
-          }
-        });
-        const cardFirst = notRivalCard.find(card => (card.id = state.nick1));
-        const cardSecond = notRivalCard.find(card => (card.id = action.id));
-        console.log({ notRivalCard });
-        if (cardFirst.idx === cardSecond.idx) {
-          return {
-            ...state,
-            cards: [
-              ...state.cards.map(card => {
-                if (card.id === cardFirst.id) {
-                  return {
-                    ...card,
-                    rival: true,
-                  };
-                } else if (card.id === cardSecond.id) {
-                  return {
-                    ...card,
-                    rival: true,
-                  };
-                } else {
-                  return { ...card, overturn: false };
-                }
-              }),
-            ],
-          };
-        }
-      } else {
-        return state;
-      }
-    }
+      return newState;
     case Type.RESET_GAME:
       return {
         cards: generateCards(),

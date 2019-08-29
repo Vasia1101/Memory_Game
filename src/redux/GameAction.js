@@ -5,7 +5,6 @@ export const Type = {
   OVERTURN_CARD: 'OVERTURN_CARD',
   CHECK_CARDS: 'CHECK_CARDS',
   RESET_GAME: 'RESET_GAME',
-  MACH_CARDS: 'MACH_CARDS',
 };
 
 export const startGame = () => {
@@ -15,18 +14,12 @@ export const startGame = () => {
     cards,
   };
 };
-export const overturnCard = (idx, id) => dispatch => {
-  dispatch({
+export const overturnCard = (idx, id) => {
+  return {
     type: Type.OVERTURN_CARD,
     idx,
     id,
-  });
-
-  dispatch({
-    type: Type.MACH_CARDS,
-    idx,
-    id,
-  });
+  };
 };
 
 export const resetGame = () => {
