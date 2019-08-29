@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Card from '../card/Card';
+import Card from '../Card/Card';
 
 function Board({ cards, step, handleClick, idx, overturn }) {
   return (

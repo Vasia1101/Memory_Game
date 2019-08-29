@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Board from './components/board/Board';
+import Board from './components/Board/Board';
 import * as gameActions from './redux/GameAction';
 import './App.css';
 
