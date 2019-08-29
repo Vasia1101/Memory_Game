@@ -12,7 +12,6 @@ import imgback from '../../assets/img/back.png';
 const images = [img1, img2, img3, img4, img5, img6];
 
 function Card({ overturn, id, handleClick, idx, height, width }) {
-  console.log(idx);
   return (
     <>
       <div

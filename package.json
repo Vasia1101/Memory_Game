@@ -19,7 +19,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint src/**/*.js --fix",
-    "lint:format": "prettier src/**/*.{js,css,json} --write"
+    "lint:format": "prettier src/**/*.{js,css,json} --write",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -63,5 +64,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Vasia1101/Memory_Game/issues"
-  }
+  },
+  "homepage": "https://vasia1101.github.io/Memory_Game/"
 }
